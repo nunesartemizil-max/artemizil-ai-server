@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Artemizil AI</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:#172033;font-family:Arial,sans-serif}.app{max-width:480px;margin:auto;min-height:100vh;background:#fff}
+.screen{min-height:100vh;padding:22px}.center{display:flex;flex-direction:column;justify-content:center}.logo{width:88px;height:88px;border-radius:50%;margin:0 auto 18px;background:linear-gradient(135deg,#18c9e8,#245eea);display:grid;place-items:center;font-size:42px;box-shadow:0 10px 28px #2468e333}
+h1{text-align:center;font-size:28px;margin:0 0 6px}.sub{text-align:center;color:#667085;margin-bottom:24px}
+.card{border:1px solid #e5eaf1;border-radius:18px;padding:17px;margin:12px 0;box-shadow:0 5px 18px #00000008}label{font-size:13px;font-weight:bold}input{width:100%;padding:14px;margin:7px 0 12px;border:1px solid #d9e0e8;border-radius:12px;font-size:15px}button{width:100%;padding:14px;border:0;border-radius:12px;background:#1769e8;color:#fff;font-weight:bold;font-size:15px;margin-top:7px}button.alt{background:#eef4ff;color:#1769e8}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.top b{font-size:20px}.tiny{font-size:12px;color:#667085}.features{display:grid;grid-template-columns:1fr 1fr;gap:10px}.feature{padding:14px;background:#f7f9fc;border-radius:12px}.plan{display:flex;justify-content:space-between;align-items:center}.badge{background:#eef4ff;color:#1769e8;border-radius:20px;padding:5px 9px;font-size:11px;font-weight:bold}.msg{padding:12px;border-radius:13px;margin:9px 0;background:#f0f5ff}.user{background:#1769e8;color:#fff;margin-left:28px}.hidden{display:none}.small{text-align:center;color:#7b8493;font-size:12px;margin-top:18px}
+</style>
+</head>
+<body><div class="app">
+
+<section id="login" class="screen center">
+<div class="logo">🤖</div><h1>ARTEMIZIL AI</h1><div class="sub">Sua inteligência. Sem limites.</div>
+<div class="card"><label>Seu nome</label><input id="name" placeholder="Digite seu nome"><label>E-mail</label><input id="email" type="email" placeholder="seuemail@email.com"><button onclick="enter()">CONTINUAR GRÁTIS</button></div>
+<p class="small">Ao continuar, você entra no plano Grátis. Este protótipo não envia seus dados para nenhum servidor.</p>
+</section>
+
+<section id="home" class="screen hidden">
+<div class="top"><b>🤖 Artemizil AI</b><span class="tiny" id="who"></span></div>
+<div class="card"><h2>Olá! 👋</h2><p>O que você quer fazer hoje?</p>
+<button onclick="openChat()">💬 Conversar com a IA</button>
+<button class="alt" onclick="alert('Análise de imagens será conectada à IA real.')">🖼️ Analisar imagem</button>
+<button class="alt" onclick="alert('Voz será conectada na próxima etapa.')">🎙️ Falar com a IA</button>
+</div>
+<div class="card"><b>Seu plano</b><div class="plan"><span>🆓 Grátis</span><span class="badge">ATUAL</span></div><button class="alt" onclick="alert('Aqui ficarão os planos Pro e Premium.')">⭐ VER PRO E PREMIUM</button></div>
+<h3>Recursos</h3><div class="features"><div class="feature">✍️ Textos</div><div class="feature">📚 Estudos</div><div class="feature">💡 Ideias</div><div class="feature">🎬 Conteúdo</div></div>
+<button class="alt" onclick="logout()">Sair da conta</button>
+</section>
+
+<section id="chat" class="screen hidden">
+<div class="top"><button class="alt" style="width:auto;padding:9px 13px" onclick="goHome()">← Voltar</button><b>🤖 IA</b><span></span></div>
+<div class="card"><div id="messages"><div class="msg">Olá! 👋 Sou o Artemizil AI. Escreva sua pergunta abaixo.</div></div>
+<input id="q" placeholder="Digite sua pergunta..." onkeydown="if(event.key==='Enter')send()"><button onclick="send()">ENVIAR</button></div>
+<p class="small">Protótipo: o modelo de IA real precisa ser conectado a uma API segura.</p>
+</section>
+
+<script>
+const ids=['login','home','chat'];
+function show(id){ids.forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id))}
+function enter(){let n=document.getElementById('name').value.trim(),e=document.getElementById('email').value.trim();if(!n||!e||!e.includes('@')){alert('Digite seu nome e um e-mail válido.');return}document.getElementById('who').textContent=e;show('home')}
+function logout(){show('login')}
+function openChat(){show('chat')}
+function goHome(){show('home')}
+function send(){let q=document.getElementById('q'),v=q.value.trim();if(!v)return;let m=document.getElementById('messages');m.innerHTML+=`<div class="msg user">${v.replaceAll('<','&lt;')}</div><div class="msg">Entendi! 🤖 Esta resposta é apenas da demonstração. Na versão final, vou conectar uma IA real para responder sua pergunta.</div>`;q.value=''}
+</script></div></body></html>
